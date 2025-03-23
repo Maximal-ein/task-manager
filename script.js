@@ -26,9 +26,6 @@ function createTodoItem(text) {
   label.append(todoListInput, span);
   newTodoListItem.append(label);
   todoList.append(newTodoListItem);
-
-  // Удаляем новую задачу если checked
-  todoListInput.addEventListener('change', () => removeTask(newTodoListItem));
 }
 
 // Добавление задачи
@@ -42,17 +39,15 @@ addFormButton.addEventListener('click', (evt) => {
   }
 });
 
-// Удаляем задачи, если checked
-const todoListItems = document.querySelectorAll('.todo-list-item');
-todoListItems.forEach((todoListItem) => {
-  const checkbox = todoListItem.querySelector('.todo-list-input');
-  checkbox.addEventListener('change', () => removeTask(todoListItem));
+// Удаляем задачи из DOM, если checked
+todoList.addEventListener('change', (evt) => {
+  if (evt.target.classList.contains('todo-list-input')) {
+    const todoListItem = evt.target.closest('.todo-list-item');
+    if (todoListItem) {
+      todoListItem.remove();
+      emptyTasksMessageManager();
+    }
+  }
 });
-
-// Удаляем задачу из DOM
-function removeTask (task) {
-  task.remove();
-  emptyTasksMessageManager();
-}
 
 emptyTasksMessageManager(); // Проверка при загрузке страницы
