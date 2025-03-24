@@ -4,10 +4,7 @@ const todoList = document.querySelector('.todo-list');
 // Показываем/скрываем сообщение, что задач нет
 function emptyTasksMessageManager() {
   const emptyTasks = document.querySelector('.empty-tasks');
-  const remainingItems = document.querySelectorAll('.todo-list-item');
-  remainingItems.length === 0
-    ? emptyTasks.classList.remove('hidden')
-    : emptyTasks.classList.add('hidden');
+  emptyTasks.classList.toggle('hidden', todoList.children.length > 0);
 }
 
 // Создание новой задачи
