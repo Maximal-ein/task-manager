@@ -1,4 +1,4 @@
-const addFormButton = document.querySelector('.add-form-button');
+const addForm = document.querySelector('.add-form');
 const todoList = document.querySelector('.todo-list');
 
 // Показываем/скрываем сообщение, что задач нет
@@ -9,24 +9,14 @@ function emptyTasksMessageManager() {
 
 // Создание новой задачи
 function createTodoItem(text) {
-  const newTodoListItem = document.createElement('li');
-  newTodoListItem.classList.add('todo-list-item');
-
-  const label = document.createElement('label');
-  const todoListInput = document.createElement('input');
-  todoListInput.classList.add('todo-list-input');
-  todoListInput.type = 'checkbox';
-
-  const span = document.createElement('span');
-  span.textContent = text;
-
-  label.append(todoListInput, span);
-  newTodoListItem.append(label);
+  const template = document.getElementById('task-template');
+  const newTodoListItem = template.content.cloneNode(true);
+  newTodoListItem.querySelector('span').textContent = text;
   todoList.append(newTodoListItem);
 }
 
 // Добавление задачи
-addFormButton.addEventListener('click', (evt) => {
+addForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const addFormInput = document.querySelector('.add-form-input');
   if (addFormInput.value.trim() !== '') {
